@@ -11,6 +11,7 @@ import android.util.Log;
 import guichaguri.trackplayer.logic.MediaManager;
 import guichaguri.trackplayer.logic.Utils;
 import guichaguri.trackplayer.logic.components.MediaWrapper;
+import guichaguri.trackplayer.player.Playback;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,7 +88,9 @@ public class PlayerService extends MediaBrowserServiceCompat {
         Log.d(Utils.TAG, "Task removed");
 
         if(manager.shouldStopWithApp()) {
-            stopSelf();
+          Playback pb = manager.getPlayback();
+          if(pb == null) return;
+          pb.stop();
         }
     }
 }
